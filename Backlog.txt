@@ -1,0 +1,57 @@
+Backlog Oculto
+
+- IDE Android Studio
+
+- Criação de um projeto
+
+- Activity simples que informa a partir dos cáculo se é vantagem etanol ou gasolina
+	Fórmula: Etanol / Gasolina = acima de 70% usa gasolina, abaixo etanol
+
+- Criar pemissões no arquivo AndroidManifest
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.RECEIVE_SMS"></uses-permission>
+    <uses-permission android:name="android.permission.READ_SMS" />
+    <uses-permission android:name="android.permission.SEND_SMS"></uses-permission>
+
+
+- Criar um BroadCastReceiver para capturar os SMSs
+	final Object[] pdusObj = (Object[]) intent.getExtras().get("pdus");
+	SmsMessage currentMessage = SmsMessage.createFromPdu((byte[]) pdusObj[i]);
+	currentMessage.getDisplayOriginatingAddress(); //quem enviou
+	String message = currentMessage.getDisplayMessageBody(); //mensagem
+	Intent intentService = new Intent(context, Service.class);
+        context.startService(intentService);
+	** Antes de startar o servico deve ser salvo nas preferences o SMS
+
+- Declarar receiver no AndroidManifest com os devidos filtros
+	<receiver android:name=".BroadcastSms" android:enabled="true">
+            <intent-filter>
+                <action android:name="android.provider.Telephony.SMS_RECEIVED" />
+                <action android:name="android.intent.action.ACTION_BOOT_COMPLETED" />
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+                <action android:name="com.htc.intent.action.QUICKBOOT_POWERON" />
+            </intent-filter>
+        </receiver>
+
+
+- Importar classe RestClient para o projeto
+
+- Criar Interface para disparo de eventos quando finalizada uma ação
+
+- Criar classe Suporte para GET/SET de preferences e que verifique se ha internet
+   	ConnectivityManager cm = (ConnectivityManager) cx.getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo netInfo = cm.getActiveNetworkInfo();
+        return netInfo != null && netInfo.isConnectedOrConnecting();
+
+
+- Criar uma AsyncTask para envio dos SMS ao serviço
+
+- Criar Service para envio do SMS
+	public int onStartCommand(Intent intent, int flags, int startId)
+	- criar metodo para atraves do preferences obter os smss a serem enviados
+
+- Declarar Servico
+	<service android:enabled="true"  android:name=".Service" android:exported="false"/>
+
