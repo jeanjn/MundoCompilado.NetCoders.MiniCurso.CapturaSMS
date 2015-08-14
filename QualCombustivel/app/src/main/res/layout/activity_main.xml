@@ -18,7 +18,7 @@
         android:layout_height="70dp"
         android:inputType="numberDecimal"
         android:ems="10"
-        android:id="@+id/editText"
+        android:id="@+id/editTextEtanol"
         android:layout_marginBottom="10dp"
         android:layout_marginTop="50dp"
         android:hint="Preço do etanol" />
@@ -28,7 +28,7 @@
         android:layout_height="70dp"
         android:inputType="numberDecimal"
         android:ems="10"
-        android:id="@+id/editText2"
+        android:id="@+id/editTextGasolina"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="10dp"
         android:hint="Preço da gasolina" />
@@ -38,6 +38,7 @@
         android:layout_height="100dp"
         android:text="Qual é vantagem?"
         android:id="@+id/button"
+        android:onClick="onClick"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="20dp" />
 
@@ -46,10 +47,10 @@
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="..."
-        android:id="@+id/textView2"
+        android:id="@+id/textViewResultado"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="20dp"
-        android:textColor="#00aaea"
+        android:textColor="#4ec843"
         android:textStyle="bold"
         android:textSize="50dp" />
 </LinearLayout>

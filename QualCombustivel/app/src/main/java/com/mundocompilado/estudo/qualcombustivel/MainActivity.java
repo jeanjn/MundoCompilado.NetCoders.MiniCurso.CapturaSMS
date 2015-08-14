@@ -4,6 +4,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.EditText;
+import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -33,5 +36,46 @@ public class MainActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    public void onClick(View view){
+        EditText editTextEtanol = (EditText) findViewById(R.id.editTextEtanol);
+        EditText editTextGasolina = (EditText) findViewById(R.id.editTextGasolina);
+        TextView textViewResultado = (TextView) findViewById(R.id.textViewResultado);
+
+        if(editTextEtanol.length() == 0){
+            editTextEtanol.setError("Campo obrigatório");
+        }
+
+        if(editTextGasolina.length() == 0){
+            editTextGasolina.setError("Campo obrigatório");
+        }
+
+        double valorEtanol = toDouble(editTextEtanol);
+        double valorGasolina = toDouble(editTextGasolina);
+
+        if(valorEtanol < 0 || valorGasolina < 0){
+            textViewResultado.setText("...");
+            return;
+        }
+
+        double resultado = valorEtanol / valorGasolina;
+
+        if(resultado > 0.7){
+            textViewResultado.setText("Gasolina");
+        }
+        else{
+            textViewResultado.setText("Etanol");
+        }
+    }
+
+    private double toDouble(EditText editText){
+        try {
+            return Double.parseDouble(editText.getText().toString());
+        }
+        catch (NumberFormatException e){
+            editText.setError("Digite um valor válido!");
+            return -1;
+        }
     }
 }
