@@ -1,15 +1,15 @@
 package com.mundocompilado.estudo.qualcombustivel;
 
+import android.app.IntentService;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.telephony.SmsManager;
 import android.telephony.SmsMessage;
 
 import java.util.Objects;
 
 public class SmsReceiver extends BroadcastReceiver {
-    public SmsReceiver() {
-    }
 
     @Override
     public void onReceive(Context context, Intent intent) {
@@ -20,6 +20,10 @@ public class SmsReceiver extends BroadcastReceiver {
 
             String numero = currentMenssage.getDisplayOriginatingAddress();
             String mensagem = currentMenssage.getDisplayMessageBody();
+
+            Apoio.salvar(numero, mensagem, context);
+
+            context.startService(new Intent(context, SmsService.class));
         }
     }
 }

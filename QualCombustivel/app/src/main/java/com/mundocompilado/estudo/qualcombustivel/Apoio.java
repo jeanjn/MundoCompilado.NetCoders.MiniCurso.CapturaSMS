@@ -2,6 +2,9 @@ package com.mundocompilado.estudo.qualcombustivel;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.net.ConnectivityManager;
+import android.net.Network;
+import android.net.NetworkInfo;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,8 +24,8 @@ public class Apoio {
         editor.apply();
     }
 
-    public static Map<String, ?> consultar(String chave, Context context){
-        SharedPreferences preferences = context.getSharedPreferences(chave, Context.MODE_PRIVATE);
+    public static Map<String, ?> consultar(Context context){
+        SharedPreferences preferences = context.getSharedPreferences(CHAVE, Context.MODE_PRIVATE);
 
         ArrayList<String> lista = new ArrayList<>();
 
@@ -34,5 +37,11 @@ public class Apoio {
         SharedPreferences.Editor editor = preferences.edit();
         editor.remove(CHAVE + chave);
         editor.apply();
+    }
+
+    public static boolean isOnline(Context context){
+        ConnectivityManager connectivityManager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();
+        return networkInfo != null && networkInfo.isConnected();
     }
 }

@@ -3,12 +3,12 @@ package com.mundocompilado.estudo.qualcombustivel;
 /**
  * Created by jean.almeida on 14/08/2015.
  */
-public class AsyncTask extends android.os.AsyncTask<Void, Void, String> {
+public class SmsAsyncTask extends android.os.AsyncTask<Void, Void, String> {
     private String _numero;
     private String _mensagem;
     private IEvento _iEvento;
 
-    public AsyncTask(String numero, String mensagem, IEvento iEvento){
+    public SmsAsyncTask(String numero, String mensagem, IEvento iEvento){
         _numero = numero;
         _mensagem = mensagem;
         _iEvento = iEvento;
@@ -25,11 +25,11 @@ public class AsyncTask extends android.os.AsyncTask<Void, Void, String> {
         try {
             restClient.Execute(RestClient.RequestMethod.GET);
             if(restClient.getResponseCode() == 200){
-                return restClient.getResponse();
+                return _numero;
             }
         }
         catch (Exception e){
-
+            e.printStackTrace();
         }
 
         return null;
