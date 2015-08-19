@@ -16,33 +16,18 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
-    }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
-
+    //No layout activity_main foi programado para o botao chamar este metodo
+    //no evento onClick
+    //O view passado por parametro e o botao
     public void onClick(View view){
+
+        //Capturamos os elementos da tela
         EditText editTextEtanol = (EditText) findViewById(R.id.editTextEtanol);
         EditText editTextGasolina = (EditText) findViewById(R.id.editTextGasolina);
         TextView textViewResultado = (TextView) findViewById(R.id.textViewResultado);
 
+        //validamos os campos
         if(editTextEtanol.length() == 0){
             editTextEtanol.setError("Campo obrigatório");
         }
@@ -54,6 +39,7 @@ public class MainActivity extends AppCompatActivity {
         double valorEtanol = toDouble(editTextEtanol);
         double valorGasolina = toDouble(editTextGasolina);
 
+        //restauramos o valor original do resultado caso nao possa ser feito o calculo
         if(valorEtanol < 0 || valorGasolina < 0){
             textViewResultado.setText("...");
             return;
@@ -61,6 +47,7 @@ public class MainActivity extends AppCompatActivity {
 
         double resultado = valorEtanol / valorGasolina;
 
+        //exibimos o resultado na tela
         if(resultado > 0.7){
             textViewResultado.setText("Gasolina");
         }
@@ -69,6 +56,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    //metodo de apoio para converter o valor digitado em um campo para double
     private double toDouble(EditText editText){
         try {
             return Double.parseDouble(editText.getText().toString());
